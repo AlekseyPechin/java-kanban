@@ -116,5 +116,38 @@ public class TaskManager {
         }
     }
 
+    public Task getTaskById(int id) {
+        return epicHashMap.get(id);
+    }
+
+    public Subtask getSubtaskById(int id) {
+        return subtaskHashMap.get(id);
+    }
+
+    public Epic getEpicById(int id) {
+        return epicHashMap.get(id);
+    }
+
+    public ArrayList<Task> printAllTask() {
+        if (taskHashMap.isEmpty()) {
+            System.out.println("Список задач пуст");
+        }
+        return new ArrayList<>(taskHashMap.values());
+    }
+
+    public ArrayList<Subtask> printAllSubtask() {
+        if (subtaskHashMap.isEmpty()) {
+            System.out.println("Список подзадач пуст");
+        }
+        return new ArrayList<>(subtaskHashMap.values());
+    }
+
+    public ArrayList<Epic> printAllEpic() {
+        if (epicHashMap.isEmpty()) {
+            System.out.println("Список эпиков пуст");
+        }
+        return new ArrayList<>(epicHashMap.values());
+    }
+
 
 }

@@ -117,7 +117,7 @@ public class TaskManager {
     }
 
     public Task getTaskById(int id) {
-        return epicHashMap.get(id);
+        return taskHashMap.get(id);
     }
 
     public Subtask getSubtaskById(int id) {

@@ -149,5 +149,43 @@ public class TaskManager {
         return new ArrayList<>(epicHashMap.values());
     }
 
+    public void deleteTaskById(int id) {
+        taskHashMap.remove(id);
+    }
 
+    public void deleteEpicById(int id) {
+        for (Integer idSubtask : epicHashMap.get(id).getIdSubtaskArrays()) {
+            subtaskHashMap.remove(idSubtask);
+        }
+        epicHashMap.remove(id);
+    }
+
+    public void deleteSubtaskById(int id) {
+        int idEpic = subtaskHashMap.get(id).getIdEpic();
+        epicHashMap.get(idEpic).removeSubtaskById(id);
+        subtaskHashMap.remove(id);
+    }
+
+    public void clearTaskArrays() {
+        taskHashMap.clear();
+    }
+
+    public void clearEpicArrays() {
+        epicHashMap.clear();
+        subtaskHashMap.clear();
+    }
+
+    public void clearSubtaskArrays() {
+        subtaskHashMap.clear();
+        for (Epic epic : epicHashMap.values()) {
+            epic.clearIdSubtaskArrays();
+            epic.setStatus(Status.NEW);
+        }
+    }
+
+    public void deleteAll() {
+        taskHashMap.clear();
+        subtaskHashMap.clear();
+        epicHashMap.clear();
+    }
 }

@@ -10,18 +10,18 @@ import java.util.HashMap;
 
 public class TaskManager {
 
-    private int idCount;
+    private int id;
 
     protected HashMap<Integer, Task> taskHashMap = new HashMap<>();
     protected HashMap<Integer, Subtask> subtaskHashMap = new HashMap<>();
     protected HashMap<Integer, Epic> epicHashMap = new HashMap<>();
 
     public TaskManager() {
-        this.idCount = 0;
+        this.id = 0;
     }
 
     private Integer generateId() {
-        return ++idCount;
+        return ++id;
     }
 
     public void addNewTask(Task task) {
@@ -82,7 +82,7 @@ public class TaskManager {
     }
 
     private void updateStatus(int idEpic) {
-        ArrayList<Integer> idSubtaskArrays = epicHashMap.get(idEpic).getIdSubtaskArrays();
+        ArrayList<Integer> idSubtaskArrays = epicHashMap.get(idEpic).getIdSubtasks();
         ArrayList<Subtask> subtaskArray = new ArrayList<>();
         for (Integer idSubtask : idSubtaskArrays) {
             subtaskArray.add(subtaskHashMap.get(idSubtask));
@@ -154,7 +154,7 @@ public class TaskManager {
     }
 
     public void deleteEpicById(int id) {
-        for (Integer idSubtask : epicHashMap.get(id).getIdSubtaskArrays()) {
+        for (Integer idSubtask : epicHashMap.get(id).getIdSubtasks()) {
             subtaskHashMap.remove(idSubtask);
         }
         epicHashMap.remove(id);

@@ -27,6 +27,6 @@ public class Epic extends Task {
     }
 
     public void removeSubtaskById(int idSubtask) {
-        idSubtasks.remove(idSubtask);
+        idSubtasks.removeIf(subtask -> subtask == idSubtask);
     }
 }

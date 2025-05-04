@@ -1,5 +1,7 @@
 package service;
 
+import interfaces.HistoryManager;
+import interfaces.TaskManager;
 import model.Epic;
 import model.Status;
 import model.Subtask;
@@ -8,7 +10,7 @@ import model.Task;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TaskManager {
+public class InMemoryTaskManager implements TaskManager {
 
     private int id;
 
@@ -16,7 +18,9 @@ public class TaskManager {
     protected HashMap<Integer, Subtask> subtaskHashMap = new HashMap<>();
     protected HashMap<Integer, Epic> epicHashMap = new HashMap<>();
 
-    public TaskManager() {
+    protected HistoryManager historyManager = Managers.getDefaultHistory();
+
+    public InMemoryTaskManager() {
         this.id = 0;
     }
 
@@ -24,23 +28,27 @@ public class TaskManager {
         return ++id;
     }
 
-    public void addNewTask(Task task) {
+    public int addNewTask(Task task) {
         if (task != null) {
             int id = generateId();
             task.setId(id);
             taskHashMap.put(id, task);
+            return id;
         }
+        return 0;
     }
 
-    public void addNewEpic(Epic epic) {
+    public int addNewEpic(Epic epic) {
         if (epic != null) {
             int id = generateId();
             epic.setId(id);
             epicHashMap.put(id, epic);
+            return id;
         }
+        return 0;
     }
 
-    public void addNewSubtask(Subtask subtask) {
+    public int addNewSubtask(Subtask subtask) {
         if (subtask != null) {
             int id = generateId();
             subtask.setId(id);
@@ -49,7 +57,9 @@ public class TaskManager {
             int idEpic = subtask.getIdEpic();
             epicHashMap.get(idEpic).addIdSubtask(subtask.getId());
             updateStatus(idEpic);
+            return id;
         }
+        return 0;
     }
 
     public void updateTask(Task task) {
@@ -117,14 +127,17 @@ public class TaskManager {
     }
 
     public Task getTaskById(int id) {
+        historyManager.add(taskHashMap.get(id));
         return taskHashMap.get(id);
     }
 
     public Subtask getSubtaskById(int id) {
+        historyManager.add(subtaskHashMap.get(id));
         return subtaskHashMap.get(id);
     }
 
     public Epic getEpicById(int id) {
+        historyManager.add(epicHashMap.get(id));
         return epicHashMap.get(id);
     }
 

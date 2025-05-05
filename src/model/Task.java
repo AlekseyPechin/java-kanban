@@ -72,19 +72,10 @@ public class Task {
         if (object == null || getClass() != object.getClass()) return false;
         Task task = (Task) object;
         return id == task.id;
-
     }
 
     @Override
     public int hashCode() {
-        int hash = 17;
-        if (name != null && description != null) {
-            hash = name.hashCode() + description.hashCode();
-        }
-        hash = hash * 31;
-        if (type != null) {
-            hash = hash + type.hashCode();
-        }
-        return hash;
+        return Objects.hashCode(id);
     }
 }

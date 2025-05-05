@@ -9,6 +9,7 @@ import model.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {
 
@@ -200,5 +201,13 @@ public class InMemoryTaskManager implements TaskManager {
         taskHashMap.clear();
         subtaskHashMap.clear();
         epicHashMap.clear();
+    }
+
+    public List<Task> getHistory() {
+        List<Task> histories = historyManager.getHistory();
+        if (histories.isEmpty()) {
+            System.out.println("История просмотров пуста!");
+        }
+        return histories;
     }
 }

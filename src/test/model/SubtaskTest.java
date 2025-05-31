@@ -22,6 +22,7 @@ class SubtaskTest {
         idEpic = TASK_MANAGER.addNewEpic(EPIC_TEST);
         subtask = new Subtask("Subtask", "Subtask description", NEW, idEpic);
     }
+
     @Test
     void getIdEpic() {
         assertEquals(idEpic, subtask.getIdEpic(), "id Эпиков не совпадает");

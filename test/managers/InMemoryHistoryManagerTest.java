@@ -1,4 +1,4 @@
-package test.managers;
+package managers;
 
 import main.managers.InMemoryHistoryManager;
 import main.model.Task;

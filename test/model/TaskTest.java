@@ -1,4 +1,4 @@
-package test.model;
+package model;
 
 import main.interfaces.TaskManager;
 import main.model.Task;

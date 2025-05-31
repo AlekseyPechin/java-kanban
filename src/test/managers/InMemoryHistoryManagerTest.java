@@ -1,20 +1,12 @@
 package test.managers;
 
-import main.interfaces.HistoryManager;
-import main.interfaces.TaskManager;
 import main.managers.InMemoryHistoryManager;
-import main.managers.Managers;
-import main.model.Epic;
-import main.model.Status;
-import main.model.Subtask;
 import main.model.Task;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static main.model.Status.NEW;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {

@@ -22,14 +22,14 @@ class EpicTest {
     private int idSubtask;
 
     @BeforeEach
-    void BeforeEach() {
+    void beforeEach() {
         idEpic = TASK_MANAGER.addNewEpic(EPIC_TEST);
         subtask = new Subtask("Subtask", "Subtask description", NEW, idEpic);
         idSubtask = TASK_MANAGER.addNewSubtask(subtask);
     }
 
     @AfterEach
-    void AfterEach() {
+    void clearingTaskLists() {
         TASK_MANAGER.clearSubtaskArrays();
         TASK_MANAGER.getEpicById(idEpic).clearIdSubtaskArrays();
         TASK_MANAGER.clearEpicArrays();

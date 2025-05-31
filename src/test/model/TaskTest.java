@@ -22,7 +22,7 @@ class TaskTest {
     private int taskId;
 
     @BeforeEach
-    void BeforeEach() {
+    void creatingTasks() {
         taskId = TASK_MANAGER.addNewTask(TASK_FOR_TEST);
         savedTask = TASK_MANAGER.getTaskById(taskId);
     }

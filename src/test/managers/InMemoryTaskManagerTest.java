@@ -22,7 +22,7 @@ class InMemoryTaskManagerTest {
             new Epic("Test addNewEpic", "Test addNewEpic description", NEW);
 
     @AfterEach
-    void AfterEach() {
+    void clearingTaskLists() {
         TASK_MANAGER.clearTaskArrays();
         TASK_MANAGER.clearEpicArrays();
         TASK_MANAGER.clearSubtaskArrays();

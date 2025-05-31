@@ -22,6 +22,17 @@ public class Task {
         this.status = status;
     }
 
+    public Task(String name, String description, int id) {
+        this.name = name;
+        this.description = description;
+        this.id = id;
+    }
+
+    public Task(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public String getName() {
         return name;
     }

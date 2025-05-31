@@ -1,77 +1,93 @@
 package test.managers;
 
-import main.interfaces.HistoryManager;
-import main.interfaces.TaskManager;
-import main.managers.Managers;
-import main.model.Epic;
-import main.model.Subtask;
+import main.managers.InMemoryHistoryManager;
 import main.model.Task;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static main.model.Status.NEW;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {
 
-    private static final TaskManager TASK_MANAGER = Managers.getDefault();
-    private static final HistoryManager HISTORY_MANAGER = Managers.getDefaultHistory();
-
-    private static int idEpic;
-    private static int idTask;
-    private static int idSubtask;
+    InMemoryHistoryManager history;
 
     @BeforeEach
-    void BeforeEach() {
-        Task task = new Task("Test addNewTask", "Test addNewTask description", NEW);
-        Epic epic = new Epic("Epic", "Epic Description", NEW);
-        idEpic = TASK_MANAGER.addNewEpic(epic);
-        Subtask subtask = new Subtask("Subtask", "Subtask description", NEW, idEpic);
-        idTask = TASK_MANAGER.addNewTask(task);
-        idSubtask = TASK_MANAGER.addNewSubtask(subtask);
-    }
-
-    @AfterEach
-    void AfterEach() {
-        HISTORY_MANAGER.getHistory().clear();
-        TASK_MANAGER.clearTaskArrays();
-        TASK_MANAGER.clearEpicArrays();
-        TASK_MANAGER.clearSubtaskArrays();
+    public void init() {
+        history = new InMemoryHistoryManager();
     }
 
     @Test
     void add() {
-        TASK_MANAGER.getTaskById(idTask);
-        TASK_MANAGER.getEpicById(idSubtask);
-        TASK_MANAGER.getSubtaskById(idEpic);
-
-        List<Task> histories = TASK_MANAGER.getHistory();
-        assertNotNull(histories, "Список просмотров пуст!");
-        assertEquals(3, histories.size(), "Количество просмотров не совпадает!");
+        Task task1 = new Task("Имя 1", "Описание 1",1); // создаём задачу
+        Task task2 = new Task("Имя 2", "Описание 2",2); // создаём задачу
+        Task task3 = new Task("Имя 1", "Описание 1",1); // создаём задачу
+        history.add(task1); // добавляет запрос в историю просмотров
+        history.add(task2); // добавляет запрос в историю просмотров
+        history.add(task3); // добавляет запрос в историю просмотров
+        // проверяем, что при повторном добавлении существующей задачи она перемещается в конец списка.
+        assertEquals(task1, history.getHistory().get(1), "Task не одинаковые");
     }
 
     @Test
     void getHistory() {
-        int idTaskCount;
-        int idTaskForTest;
-
-        Task task;
-        for (idTaskCount = 0; idTaskCount < 11; idTaskCount++) {
-            String taskName = "Task - " + idTaskCount;
-            task = new Task(taskName, taskName + " description", NEW);
-            idTaskForTest = TASK_MANAGER.addNewTask(task);
-            TASK_MANAGER.getTaskById(idTaskForTest);
-        }
-
-        List<Task> histories = TASK_MANAGER.getHistory();
-        assertEquals(10, histories.size(), "Количество просмотров не совпадает!");
-
-        Task savedTask = histories.getFirst();
-        String nameTaskForSaved = savedTask.getName();
-
-        assertEquals("Task - 1", nameTaskForSaved, "Имя задачи не совпадает!");
+        List<Task> historyList = history.getHistory();
+        assertEquals(0, historyList.size(), "История должна быть пустой, если она пуста или все задачи удалены");
     }
+
+    @Test
+    void remove(){
+        Task task1 = new Task("Имя 1", "Описание 1",1);
+        Task task2 = new Task("Имя 2", "Описание 2",2);
+        Task task3 = new Task("Имя 3", "Описание 3",3);
+        Task task4 = new Task("Имя 4", "Описание 4",4);
+        history.add(task1);
+        history.add(task2);
+        history.add(task3);
+        history.add(task4);
+
+
+        history.remove(2);
+        assertEquals(3, history.getHistory().size(), "размер Истории не соответствует ожидаемому");
+
+        history.remove(1);
+        assertEquals(2, history.getHistory().size(), "размер Истории не соответствует ожидаемому");
+
+        history.remove(4);
+        assertEquals(1, history.getHistory().size(), "размер Истории не соответствует ожидаемому");
+
+        history.remove(3);
+        assertEquals(0, history.getHistory().size(), "размер Истории не соответствует ожидаемому");
+
+        history.remove(2);
+        assertEquals(0, history.getHistory().size(), "размер Истории не соответствует ожидаемому");
+    }
+
+    @Test
+    void add_comparNumberOfTaskInList() {
+        int addNumberOfTask = 30;
+        for (int i = 1; i <= addNumberOfTask; i++) {
+            history.add(new Task("Название задачи: " + i, "Описание задачи: " + i, i));
+        }
+        assertEquals(addNumberOfTask, history.getHistory().size(),
+                "Не совпадает ограничение и размер таблицы");
+        assertEquals("Название задачи: " + addNumberOfTask, history.getHistory().get(addNumberOfTask - 1).getName(),
+                "Не совпадают последние задачи");
+    }
+
+    @Test
+    void delete_comparNumberOfTaskInList() {
+        int addNumberOfTask = 30;
+        for (int i = 1; i <= addNumberOfTask; i++) {
+            history.add(new Task("Название задачи: " + i, "Описание задачи: " + i, i));
+        }
+        int deleteNumberOfTask = 10;
+        for (int i = 1; i <= deleteNumberOfTask; i++) {
+            history.remove(i);
+        }
+        assertEquals(addNumberOfTask - deleteNumberOfTask, history.getHistory().size(),
+                "Не совпадает ограничение и размер таблицы");
+    }
+
 }

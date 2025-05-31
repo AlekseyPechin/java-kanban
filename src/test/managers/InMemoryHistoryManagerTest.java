@@ -37,7 +37,7 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void remove(){
+    void remove() {
         Task task1 = new Task("Имя 1", "Описание 1",1);
         Task task2 = new Task("Имя 2", "Описание 2",2);
         Task task3 = new Task("Имя 3", "Описание 3",3);

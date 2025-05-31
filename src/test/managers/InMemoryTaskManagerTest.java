@@ -27,6 +27,7 @@ class InMemoryTaskManagerTest {
         TASK_MANAGER.clearEpicArrays();
         TASK_MANAGER.clearSubtaskArrays();
     }
+
     @Test
     void addNewTask() {
         final int testId = TASK_MANAGER.addNewTask(TASK_TEST);

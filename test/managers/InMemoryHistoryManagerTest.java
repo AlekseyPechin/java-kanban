@@ -20,13 +20,12 @@ class InMemoryHistoryManagerTest {
 
     @Test
     void add() {
-        Task task1 = new Task("Имя 1", "Описание 1",1); // создаём задачу
-        Task task2 = new Task("Имя 2", "Описание 2",2); // создаём задачу
-        Task task3 = new Task("Имя 1", "Описание 1",1); // создаём задачу
-        history.add(task1); // добавляет запрос в историю просмотров
-        history.add(task2); // добавляет запрос в историю просмотров
-        history.add(task3); // добавляет запрос в историю просмотров
-        // проверяем, что при повторном добавлении существующей задачи она перемещается в конец списка.
+        Task task1 = new Task("Имя 1", "Описание 1",1);
+        Task task2 = new Task("Имя 2", "Описание 2",2);
+        Task task3 = new Task("Имя 1", "Описание 1",1);
+        history.add(task1);
+        history.add(task2);
+        history.add(task3);
         assertEquals(task1, history.getHistory().get(1), "Task не одинаковые");
     }
 

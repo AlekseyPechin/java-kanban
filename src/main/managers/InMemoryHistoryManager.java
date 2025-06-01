@@ -28,8 +28,8 @@ public class InMemoryHistoryManager implements HistoryManager {
         ArrayList<Task> listHistory = new ArrayList<>(nodeMap.size());
         Node<Task> temp = tail;
         while (temp != null) {
-            listHistory.add(temp.task);
-            temp = temp.prev;
+            listHistory.add(temp.getTask());
+            temp = temp.getPrev();
         }
         Collections.reverse(listHistory);
         return listHistory;
@@ -47,24 +47,24 @@ public class InMemoryHistoryManager implements HistoryManager {
     private void linkLast(Task task) {
         final Node<Task> newNode = new Node<>(null, task, null);
         if (tail != null) {
-            tail.next = newNode;
-            newNode.prev = tail;
+            tail.setNext(newNode);
+            newNode.setPrev(tail);
         }
         tail = newNode;
         nodeMap.put(task.getId(), tail);
     }
 
     private void removeNode(Node<Task> node) {
-        if (node.prev == null && node.next == null) {
+        if (node.getPrev() == null && node.getNext() == null) {
             tail = null; // Удаляем единственный оставшийся узел
-        } else if (node.prev == null) { // Удаляем первый элемент
-            node.next.prev = null;
-        } else if (node.next == null) { // Удаляем последний элемент
-            node.prev.next = null;
-            tail = node.prev; // Теперь этот узел становится последним
+        } else if (node.getPrev() == null) { // Удаляем первый элемент
+            node.getNext().setPrev(null);
+        } else if (node.getNext() == null) { // Удаляем последний элемент
+            node.getPrev().setNext(null);
+            tail = node.getPrev(); // Теперь этот узел становится последним
         } else { // Удаляем средний элемент
-            node.next.prev = node.prev;
-            node.prev.next = node.next;
+            node.getNext().setPrev(node.getPrev());
+            node.getPrev().setNext(node.getNext());
         }
     }
 

@@ -45,12 +45,9 @@ public class Main {
         manager.addNewEpic(new Epic("Epic_1", "Epic with subtask"));
         manager.addNewEpic(new Epic("Epic_2", "Epic without subtasks"));
 
-        Subtask subtask_1 = new Subtask("Subtask_1", "subtask_1", Status.NEW, 3);
-        Subtask subtask_2 = new Subtask("Subtask_2", "subtask_2", Status.NEW, 3);
-        Subtask subtask_3 = new Subtask("Subtask_3", "subtask_3", Status.NEW, 3);
-        manager.addNewSubtask(subtask_1);
-        manager.addNewSubtask(subtask_2);
-        manager.addNewSubtask(subtask_3);
+        manager.addNewSubtask(new Subtask("Subtask_1", "subtask_1", Status.NEW, 3));
+        manager.addNewSubtask(new Subtask("Subtask_2", "subtask_2", Status.NEW, 3));
+        manager.addNewSubtask(new Subtask("Subtask_3", "subtask_3", Status.NEW, 3));
 
         manager.getTaskById(1);
         manager.getTaskById(2);

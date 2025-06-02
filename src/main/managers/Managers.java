@@ -1,6 +1,6 @@
 package main.managers;
 
-import main.interfaces.HistoryManager;
+import main.interfacesForTaskProcessingAndOutput.HistoryManager;
 
 public class Managers {
 

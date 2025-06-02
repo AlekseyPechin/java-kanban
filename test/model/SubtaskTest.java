@@ -1,6 +1,6 @@
 package model;
 
-import main.interfaces.TaskManager;
+import main.interfacesForTaskProcessingAndOutput.TaskManager;
 import main.managers.Managers;
 import main.model.Epic;
 import main.model.Subtask;

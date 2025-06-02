@@ -1,6 +1,6 @@
 package main.managers;
 
-import main.interfaces.HistoryManager;
+import main.interfacesForTaskProcessingAndOutput.HistoryManager;
 import main.model.Node;
 import main.model.Task;
 

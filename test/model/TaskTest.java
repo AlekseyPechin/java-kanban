@@ -1,6 +1,6 @@
 package model;
 
-import main.interfaces.TaskManager;
+import main.interfacesForTaskProcessingAndOutput.TaskManager;
 import main.model.Task;
 import static main.model.Status.*;
 import org.junit.jupiter.api.BeforeEach;

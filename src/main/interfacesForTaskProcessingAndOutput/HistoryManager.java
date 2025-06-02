@@ -1,4 +1,4 @@
-package main.interfaces;
+package main.interfacesForTaskProcessingAndOutput;
 
 import main.model.Task;
 

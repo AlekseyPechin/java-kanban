@@ -10,6 +10,15 @@ public class Epic extends Task {
         super(name, description, status);
     }
 
+    public Epic(String name, String description) {
+        super(name, description);
+    }
+
+    public Epic(String name, String description, Integer id) { // Конструктор для обновления: наименования и описания
+        super(name, description, id);
+        this.status = Status.NEW;
+    }
+
     public ArrayList<Integer> getIdSubtasks() {
         return idSubtasks;
     }

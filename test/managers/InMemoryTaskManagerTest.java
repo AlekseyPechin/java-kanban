@@ -1,6 +1,6 @@
-package test.managers;
+package managers;
 
-import main.interfaces.TaskManager;
+import main.interfacesForTaskProcessingAndOutput.TaskManager;
 import main.managers.Managers;
 import main.model.Epic;
 import main.model.Subtask;
@@ -22,11 +22,12 @@ class InMemoryTaskManagerTest {
             new Epic("Test addNewEpic", "Test addNewEpic description", NEW);
 
     @AfterEach
-    void AfterEach() {
+    void clearingTaskLists() {
         TASK_MANAGER.clearTaskArrays();
         TASK_MANAGER.clearEpicArrays();
         TASK_MANAGER.clearSubtaskArrays();
     }
+
     @Test
     void addNewTask() {
         final int testId = TASK_MANAGER.addNewTask(TASK_TEST);

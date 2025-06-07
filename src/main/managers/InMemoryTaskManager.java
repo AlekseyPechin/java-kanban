@@ -1,7 +1,7 @@
 package main.managers;
 
-import main.interfaces.HistoryManager;
-import main.interfaces.TaskManager;
+import main.interfacesForTaskProcessingAndOutput.HistoryManager;
+import main.interfacesForTaskProcessingAndOutput.TaskManager;
 import main.model.Epic;
 import main.model.Status;
 import main.model.Subtask;

@@ -1,6 +1,6 @@
-package test.model;
+package model;
 
-import main.interfaces.TaskManager;
+import main.interfacesForTaskProcessingAndOutput.TaskManager;
 import main.model.Task;
 import static main.model.Status.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +22,7 @@ class TaskTest {
     private int taskId;
 
     @BeforeEach
-    void BeforeEach() {
+    void creatingTasks() {
         taskId = TASK_MANAGER.addNewTask(TASK_FOR_TEST);
         savedTask = TASK_MANAGER.getTaskById(taskId);
     }

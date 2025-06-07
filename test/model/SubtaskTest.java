@@ -1,6 +1,6 @@
-package test.model;
+package model;
 
-import main.interfaces.TaskManager;
+import main.interfacesForTaskProcessingAndOutput.TaskManager;
 import main.managers.Managers;
 import main.model.Epic;
 import main.model.Subtask;
@@ -18,10 +18,11 @@ class SubtaskTest {
     private Subtask subtask;
 
     @BeforeEach
-    void BeforeEach() {
+    void beforeEach() {
         idEpic = TASK_MANAGER.addNewEpic(EPIC_TEST);
         subtask = new Subtask("Subtask", "Subtask description", NEW, idEpic);
     }
+
     @Test
     void getIdEpic() {
         assertEquals(idEpic, subtask.getIdEpic(), "id Эпиков не совпадает");

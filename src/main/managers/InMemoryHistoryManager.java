@@ -4,7 +4,12 @@ import main.taskManagerAndHistoryManagerInterfaces.HistoryManager;
 import main.model.Node;
 import main.model.Task;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Collections;
+
 
 public class InMemoryHistoryManager implements HistoryManager {
 

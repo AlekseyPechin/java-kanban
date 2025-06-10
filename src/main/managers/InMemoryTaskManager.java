@@ -16,9 +16,9 @@ import static main.model.Status.*;
 public class InMemoryTaskManager implements TaskManager {
 
     private final HistoryManager historyManager;
-    private final Map<Integer, Task> tasks = new HashMap<>();
-    private final Map<Integer, Epic> epics = new HashMap<>();
-    private final Map<Integer, Subtask> subtasks = new HashMap<>();
+    private static final Map<Integer, Task> tasks = new HashMap<>();
+    private static final Map<Integer, Epic> epics = new HashMap<>();
+    private static final Map<Integer, Subtask> subtasks = new HashMap<>();
 
     private static int id = 0;
 
@@ -28,6 +28,18 @@ public class InMemoryTaskManager implements TaskManager {
 
     public int generateId() {
         return ++id;
+    }
+
+    public static Map<Integer, Task> getTasks() {
+        return tasks;
+    }
+
+    public static Map<Integer, Epic> getEpics() {
+        return epics;
+    }
+
+    public static Map<Integer, Subtask> getSubtasks() {
+        return subtasks;
     }
 
     @Override

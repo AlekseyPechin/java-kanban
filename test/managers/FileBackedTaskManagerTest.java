@@ -6,11 +6,14 @@ import main.model.Epic;
 import main.model.Task;
 import main.model.Status;
 import main.model.Type;
+import main.taskManagerAndHistoryManagerInterfaces.TaskManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,6 +28,8 @@ class FileBackedTaskManagerTest {
 
     @BeforeEach
     public void beforeEach() {
+        TaskManager taskManager = Managers.getInMemoryTaskManager(Managers.getDefaultHistory());
+        taskManager.deleteAll();
         try {
             file = File.createTempFile("data.test", ".csv");
         } catch (IOException e) {
@@ -40,9 +45,8 @@ class FileBackedTaskManagerTest {
         Epic epic = new Epic("Посадить дерево", "Дерево", Status.NEW);
         manager.addNewEpic(epic);
         fileManager = new FileBackedTaskManager(Managers.getDefaultHistory(), file);
-        FileBackedTaskManager.loadFromFile(file);
-        assertEquals(List.of(task), manager.printAllTask());
-        assertEquals(List.of(epic), manager.printAllEpic());
+        assertEquals(List.of(task), fileManager.printAllTask());
+        assertEquals(List.of(epic), fileManager.printAllEpic());
     }
 
     @Test

@@ -20,7 +20,7 @@ class SubtaskTest {
 
     @BeforeEach
     void beforeEach() {
-        epic = TASK_MANAGER.addNewEpic(EPIC_TEST);
+        epic = TASK_MANAGER.createEpic(EPIC_TEST);
         subtask = new Subtask("Subtask", "Subtask description", NEW, epic.getId());
     }
 

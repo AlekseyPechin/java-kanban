@@ -4,18 +4,33 @@ import main.model.Epic;
 import main.model.Subtask;
 import main.model.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface TaskManager {
-    List<Task> getHistory();
+    Task addNewTask(Task task);
 
-    void remove(int id);
+    Epic addNewEpic(Epic epic);
 
-    Task createTask(Task task);
+    Subtask addNewSubtask(Subtask subtask);
 
-    Epic createEpic(Epic epic);
+    void updateTask(Task task);
 
-    Subtask createSubtask(Subtask subtask);
+    void updateEpic(Epic epic);
+
+    void updateSubtask(Subtask subtask);
+
+    Task getTaskById(int id);
+
+    Subtask getSubtaskById(int id);
+
+    Epic getEpicById(int id);
+
+    ArrayList<Task> printAllTask();
+
+    ArrayList<Subtask> printAllSubtask();
+
+    ArrayList<Epic> printAllEpic();
 
     void deleteTaskById(int id);
 
@@ -23,39 +38,13 @@ public interface TaskManager {
 
     void deleteSubtaskById(int id);
 
-    void deleteAllTasks();
+    void clearTaskArrays();
 
-    void deleteAllEpics();
+    void clearEpicArrays();
 
-    void deleteAllSubtasks();
+    void clearSubtaskArrays();
 
-    void deleteAllSubtasksByEpic(Epic epic);
+    void deleteAll();
 
-    Task getTaskById(int id);
-
-    Epic getEpicById(int id);
-
-    Subtask getSubtaskById(int id);
-
-    List<Task> getAllTasks();
-
-    List<Epic> getAllEpics();
-
-    List<Subtask> getAllSubtasks();
-
-    List<Subtask> getAllSubtasksByEpicId(int id);
-
-    void updateTask(Task task);
-
-    void updateEpic(Epic epic);
-
-    void updateStatus(Epic epic);
-
-    void updateSubtask(Subtask subtask);
-
-    void printTasks();
-
-    void printEpics();
-
-    void printSubtasks();
+    List<Task> getHistory();
 }

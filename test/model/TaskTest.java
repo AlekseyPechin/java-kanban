@@ -10,6 +10,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import main.managers.Managers;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TaskTest {
@@ -18,7 +21,9 @@ class TaskTest {
     private static final Task TASK_FOR_TEST = new Task(
             "Test addNewTask",
             "Test addNewTask description",
-            NEW
+            NEW,
+            LocalDateTime.now(),
+            Duration.ofMinutes(1)
     );
 
     private Task savedTask;
@@ -26,7 +31,7 @@ class TaskTest {
 
     @BeforeEach
     void creatingTasks() {
-        task = TASK_MANAGER.addNewTask(TASK_FOR_TEST);
+        task = TASK_MANAGER.createTask(TASK_FOR_TEST);
         savedTask = TASK_MANAGER.getTaskById(task.getId());
     }
 

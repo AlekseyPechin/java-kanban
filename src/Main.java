@@ -7,23 +7,56 @@ import main.model.Task;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        FileBackedTaskManager manager = new FileBackedTaskManager(Managers.getDefaultHistory());
+        final Path path = Path.of("src/saveFileTest.CSV");
+        File file = new File(String.valueOf(path));
 
-        Task firstTask = new Task("Разработать лифт до луны", "Космолифт", Status.NEW);
-        manager.addNewTask(firstTask);
-        Task secondTask = new Task("Познакомиться", "Tinder", Status.NEW);
-        manager.addNewTask(secondTask);
+        FileBackedTaskManager manager = new FileBackedTaskManager(Managers.getDefaultHistory(), file);
 
-        Epic firstEpic = new Epic("Посадить дерево", "Дерево", Status.NEW);
-        manager.addNewEpic(firstEpic);
+        LocalDateTime startTime = LocalDateTime.now();
+        Duration duration = Duration.ofMinutes(1);
 
-        Subtask firstSubtask = new Subtask("Купить семена", "Семена", Status.NEW, firstEpic.getId());
-        manager.addNewSubtask(firstSubtask);
+        Task firstTask = new Task(
+                "Разработать лифт до луны",
+                "Космолифт",
+                Status.NEW,
+                startTime,
+                duration
+        );
+        manager.createTask(firstTask);
+        Task secondTask = new Task(
+                "Познакомиться",
+                "Tinder",
+                Status.NEW,
+                startTime.plusMinutes(3),
+                duration
+        );
+        manager.createTask(secondTask);
+
+        Epic firstEpic = new Epic(
+                "Посадить дерево",
+                "Дерево",
+                Status.NEW,
+                startTime.plusMinutes(6),
+                duration
+        );
+        manager.createEpic(firstEpic);
+
+        Subtask firstSubtask = new Subtask(
+                "Купить семена",
+                "Семена",
+                Status.NEW,
+                startTime.plusMinutes(10),
+                duration,
+                firstEpic.getId()
+        );
+        manager.createSubtask(firstSubtask);
 
         manager.getTaskById(firstTask.getId());
         manager.getTaskById(secondTask.getId());
@@ -32,13 +65,13 @@ public class Main {
         System.out.println("--- Считывание из файла ---");
         Path path2 = Path.of("src/saveFile.CSV");
         File file2 = new File(String.valueOf(path2));
-        manager.loadFromFile(new File(String.valueOf(file2)));
+        manager.loadFromFile(file);
         System.out.println("Задачи");
-        System.out.println(manager.printAllTask());
+        System.out.println(manager.getAllTasks());
         System.out.println("Эпики");
-        System.out.println(manager.printAllEpic());
+        System.out.println(manager.getAllEpics());
         System.out.println("Подзадачи");
-        System.out.println(manager.printAllSubtask());
+        System.out.println(manager.getAllSubtasks());
         System.out.println("История");
         System.out.println(manager.getHistory());
 

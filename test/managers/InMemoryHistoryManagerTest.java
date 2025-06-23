@@ -1,92 +1,113 @@
 package managers;
 
 import main.managers.InMemoryHistoryManager;
+import main.model.Status;
 import main.model.Task;
+import main.taskManagerAndHistoryManagerInterfaces.HistoryManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {
+    protected LocalDateTime startTime = LocalDateTime.now();
+    protected Duration duration = Duration.ofMinutes(1);
+    HistoryManager manager;
+    private int id = 0;
 
-    InMemoryHistoryManager history;
+    public int generateId() {
+        return ++id;
+    }
+
+    protected Task createTask() {
+        return new Task(
+                "Description",
+                "Title",
+                Status.NEW,
+                startTime,
+                duration
+        );
+    }
 
     @BeforeEach
-    public void init() {
-        history = new InMemoryHistoryManager();
+    public void beforeEach() {
+        manager = new InMemoryHistoryManager();
     }
 
     @Test
-    void add() {
-        Task task1 = new Task("Имя 1", "Описание 1", 1);
-        Task task2 = new Task("Имя 2", "Описание 2", 2);
-        Task task3 = new Task("Имя 1", "Описание 1", 1);
-        history.add(task1);
-        history.add(task2);
-        history.add(task3);
-        assertEquals(task1, history.getHistory().get(1), "Task не одинаковые");
+    public void shouldAddTasksToHistory() {
+        Task task1 = createTask();
+        int newTaskId1 = generateId();
+        task1.setId(newTaskId1);
+        Task task2 = createTask();
+        int newTaskId2 = generateId();
+        task2.setId(newTaskId2);
+        Task task3 = createTask();
+        int newTaskId3 = generateId();
+        task3.setId(newTaskId3);
+        manager.add(task1);
+        manager.add(task2);
+        manager.add(task3);
+        assertEquals(List.of(task1, task2, task3), manager.getHistory());
     }
 
     @Test
-    void getHistory() {
-        List<Task> historyList = history.getHistory();
-        assertEquals(0, historyList.size(), "История должна быть пустой, если она пуста или все задачи удалены");
+    public void shouldRemoveTask() {
+        Task task1 = createTask();
+        int newTaskId1 = generateId();
+        task1.setId(newTaskId1);
+        Task task2 = createTask();
+        int newTaskId2 = generateId();
+        task2.setId(newTaskId2);
+        Task task3 = createTask();
+        int newTaskId3 = generateId();
+        task3.setId(newTaskId3);
+        manager.add(task1);
+        manager.add(task2);
+        manager.add(task3);
+        manager.remove(task2.getId());
+        assertEquals(List.of(task1, task3), manager.getHistory());
     }
 
     @Test
-    void remove() {
-        Task task1 = new Task("Имя 1", "Описание 1", 1);
-        Task task2 = new Task("Имя 2", "Описание 2", 2);
-        Task task3 = new Task("Имя 3", "Описание 3", 3);
-        Task task4 = new Task("Имя 4", "Описание 4", 4);
-        history.add(task1);
-        history.add(task2);
-        history.add(task3);
-        history.add(task4);
-
-
-        history.remove(2);
-        assertEquals(3, history.getHistory().size(), "размер Истории не соответствует ожидаемому");
-
-        history.remove(1);
-        assertEquals(2, history.getHistory().size(), "размер Истории не соответствует ожидаемому");
-
-        history.remove(4);
-        assertEquals(1, history.getHistory().size(), "размер Истории не соответствует ожидаемому");
-
-        history.remove(3);
-        assertEquals(0, history.getHistory().size(), "размер Истории не соответствует ожидаемому");
-
-        history.remove(2);
-        assertEquals(0, history.getHistory().size(), "размер Истории не соответствует ожидаемому");
+    public void shouldRemoveOnlyOneTask() {
+        Task task = createTask();
+        int newTaskId = generateId();
+        task.setId(newTaskId);
+        manager.add(task);
+        manager.remove(task.getId());
+        assertEquals(Collections.EMPTY_LIST, manager.getHistory());
     }
 
     @Test
-    void add_comparNumberOfTaskInList() {
-        int addNumberOfTask = 30;
-        for (int i = 1; i <= addNumberOfTask; i++) {
-            history.add(new Task("Название задачи: " + i, "Описание задачи: " + i, i));
-        }
-        assertEquals(addNumberOfTask, history.getHistory().size(),
-                "Не совпадает ограничение и размер таблицы");
-        assertEquals("Название задачи: " + addNumberOfTask, history.getHistory().get(addNumberOfTask - 1).getName(),
-                "Не совпадают последние задачи");
+    public void shouldHistoryIsEmpty() {
+        Task task1 = createTask();
+        int newTaskId1 = generateId();
+        task1.setId(newTaskId1);
+        Task task2 = createTask();
+        int newTaskId2 = generateId();
+        task2.setId(newTaskId2);
+        Task task3 = createTask();
+        int newTaskId3 = generateId();
+        task3.setId(newTaskId3);
+        manager.remove(task1.getId());
+        manager.remove(task2.getId());
+        manager.remove(task3.getId());
+        assertEquals(Collections.EMPTY_LIST, manager.getHistory());
     }
 
     @Test
-    void delete_comparNumberOfTaskInList() {
-        int addNumberOfTask = 30;
-        for (int i = 1; i <= addNumberOfTask; i++) {
-            history.add(new Task("Название задачи: " + i, "Описание задачи: " + i, i));
-        }
-        int deleteNumberOfTask = 10;
-        for (int i = 1; i <= deleteNumberOfTask; i++) {
-            history.remove(i);
-        }
-        assertEquals(addNumberOfTask - deleteNumberOfTask, history.getHistory().size(),
-                "Не совпадает ограничение и размер таблицы");
+    public void shouldNotRemoveTaskWithBadId() {
+        Task task = createTask();
+        int newTaskId = generateId();
+        task.setId(newTaskId);
+        manager.add(task);
+        manager.remove(0);
+        assertEquals(List.of(task), manager.getHistory());
     }
-
 }

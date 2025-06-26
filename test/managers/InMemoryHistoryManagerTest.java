@@ -1,8 +1,8 @@
 package managers;
 
 import main.managers.InMemoryHistoryManager;
-import main.model.Status;
-import main.model.Task;
+import main.models.Status;
+import main.models.Task;
 import main.taskManagerAndHistoryManagerInterfaces.HistoryManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

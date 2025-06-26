@@ -1,6 +1,6 @@
 package main.taskManagerAndHistoryManagerInterfaces;
 
-import main.model.Task;
+import main.models.Task;
 
 import java.util.List;
 

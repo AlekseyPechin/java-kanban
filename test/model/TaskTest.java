@@ -2,9 +2,9 @@ package model;
 
 import main.taskManagerAndHistoryManagerInterfaces.TaskManager;
 import main.managers.InMemoryHistoryManager;
-import main.model.Task;
+import main.models.Task;
 
-import static main.model.Status.*;
+import static main.models.Status.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,6 +12,7 @@ import main.managers.Managers;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,19 +27,19 @@ class TaskTest {
             Duration.ofMinutes(1)
     );
 
-    private Task savedTask;
+    private Optional<Task> savedTask;
     private Task task;
 
     @BeforeEach
     void creatingTasks() {
         task = TASK_MANAGER.createTask(TASK_FOR_TEST);
-        savedTask = TASK_MANAGER.getTaskById(task.getId());
+        savedTask = TASK_MANAGER.getTaskById(Optional.of(task.getId()).get());
     }
 
     @Test
     void getName() {
         final String nameTask = TASK_FOR_TEST.getName();
-        final String nameSavedTask = savedTask.getName();
+        final String nameSavedTask = savedTask.get().getName();
 
         assertEquals(nameTask, nameSavedTask, "Неверное имя задачи");
     }
@@ -46,14 +47,14 @@ class TaskTest {
     @Test
     void getDescription() {
         final String descriptionTask = TASK_FOR_TEST.getDescription();
-        final String descriptionSavedTask = savedTask.getDescription();
+        final String descriptionSavedTask = savedTask.get().getDescription();
 
         assertEquals(descriptionTask, descriptionSavedTask, "Неверное описание задачи");
     }
 
     @Test
     void getId() {
-        final int idSavedTask = savedTask.getId();
+        final int idSavedTask = savedTask.get().getId();
 
         assertEquals(task.getId(), idSavedTask, "Неверный Id задачи");
     }

@@ -2,7 +2,7 @@ package main.managers;
 
 
 import main.exceptions.ManagerSaveException;
-import main.model.*;
+import main.models.*;
 import main.taskManagerAndHistoryManagerInterfaces.HistoryManager;
 
 import java.io.*;
@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
@@ -220,36 +221,36 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public Task getTaskById(int id) {
-        Task task = super.getTaskById(id);
-        save();
-        return task;
+    public Optional<Task> updateTask(Task task) {
+        var taskOpt = Optional.ofNullable(task);
+        if (taskOpt.isPresent()) {
+            super.updateTask(taskOpt.get());
+            save();
+            return taskOpt;
+        }
+        return Optional.empty();
     }
 
     @Override
-    public Epic getEpicById(int id) {
-        Epic epic = super.getEpicById(id);
-        save();
-        return epic;
+    public Optional<Epic> updateEpic(Epic epic) {
+        var epicOpt = Optional.ofNullable(epic);
+        if (epicOpt.isPresent()) {
+            super.updateEpic(epicOpt.get());
+            save();
+            return epicOpt;
+        }
+        return Optional.empty();
     }
 
     @Override
-    public Subtask getSubtaskById(int id) {
-        Subtask subtask = super.getSubtaskById(id);
-        save();
-        return subtask;
-    }
-
-    @Override
-    public void updateTask(Task task) {
-        super.updateTask(task);
-        save();
-    }
-
-    @Override
-    public void updateEpic(Epic epic) {
-        super.updateEpic(epic);
-        save();
+    public Optional<Subtask> updateSubtask(Subtask subtask) {
+        var subtaskOpt = Optional.ofNullable(subtask);
+        if (subtaskOpt.isPresent()) {
+            super.updateSubtask(subtaskOpt.get());
+            save();
+            return subtaskOpt;
+        }
+        return Optional.empty();
     }
 
     // Метод для сохранения истории в CSV

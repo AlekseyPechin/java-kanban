@@ -1,4 +1,4 @@
-package main.model;
+package main.models;
 
 public enum Type {
     TASK,

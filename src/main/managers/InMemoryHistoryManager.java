@@ -1,28 +1,25 @@
 package main.managers;
 
-import main.model.Node;
+import main.models.Node;
 import main.taskManagerAndHistoryManagerInterfaces.HistoryManager;
-import main.model.Task;
+import main.models.Task;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 public class InMemoryHistoryManager implements HistoryManager {
 
     private static class CustomLinkedList {
-        private final Map<Integer, Node> table = new HashMap<>();
-        private Node head;
-        private Node tail;
+        private final Map<Integer, Node<Task>> table = new HashMap<>();
+        private Node<Task> head;
+        private Node<Task> tail;
 
         private void linkLast(Task task) {
-            Node element = new Node();
+            Node<Task> element = new Node();
             element.setTask(task);
 
-            if (table.containsKey(task.getId())) {
-                removeNode(table.get(task.getId()));
+            if (table.containsKey(Optional.of(task).get().getId())) {
+                removeNode(table.get(Optional.of(task).get().getId()));
             }
 
             if (head == null) {
@@ -42,7 +39,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
         private List<Task> getTask() {
             List<Task> result = new ArrayList<>();
-            Node element = head;
+            Node<Task> element = head;
             while (element != null) {
                 result.add(element.getTask());
                 element = element.getNext();
@@ -50,11 +47,11 @@ public class InMemoryHistoryManager implements HistoryManager {
             return result;
         }
 
-        private void removeNode(Node node) {
+        private void removeNode(Node<Task> node) {
             if (node != null) {
                 table.remove(node.getTask().getId());
-                Node prev = node.getPrev();
-                Node next = node.getNext();
+                Node<Task> prev = node.getPrev();
+                Node<Task> next = node.getNext();
 
                 if (head == node) {
                     head = node.getNext();
@@ -72,7 +69,7 @@ public class InMemoryHistoryManager implements HistoryManager {
             }
         }
 
-        private Node getNode(int id) {
+        private Node<Task> getNode(int id) {
             return table.get(id);
         }
     }
@@ -82,7 +79,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     // Добавление нового просмотра задачи в историю
     @Override
     public void add(Task task) {
-        list.linkLast(task);
+        list.linkLast(Optional.of(task).get());
     }
 
     // Получение истории просмотров

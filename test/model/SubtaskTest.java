@@ -3,15 +3,15 @@ package model;
 import main.taskManagerAndHistoryManagerInterfaces.TaskManager;
 import main.managers.InMemoryHistoryManager;
 import main.managers.Managers;
-import main.model.Epic;
-import main.model.Subtask;
+import main.models.Epic;
+import main.models.Subtask;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-import static main.model.Status.NEW;
+import static main.models.Status.NEW;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SubtaskTest {

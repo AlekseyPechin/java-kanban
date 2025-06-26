@@ -1,4 +1,4 @@
-package main.model;
+package main.models;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -10,7 +10,7 @@ public class Task {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
     private String name;
     private String description;
-    private int id;
+    private Integer id;
     private Status status;
     private Type type;
     private LocalDateTime startTime;
@@ -36,7 +36,7 @@ public class Task {
         this.duration = duration;
     }
 
-    public Task(String name, String description, int id) {
+    public Task(String name, String description, Integer id) {
         this.name = name;
         this.description = description;
         this.id = id;
@@ -48,7 +48,7 @@ public class Task {
         this.status = status;
     }
 
-    public Task(String name, String description, int id, Status status, Type type) {
+    public Task(String name, String description, Integer id, Status status, Type type) {
         this.name = name;
         this.description = description;
         this.id = id;
@@ -72,11 +72,11 @@ public class Task {
         this.description = description;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -120,8 +120,8 @@ public class Task {
     }
 
     public LocalDateTime getEndTime() {
-        long secondsInMinute = 60L;
-        return startTime.plusSeconds(duration.getSeconds() * secondsInMinute);
+        long SECONDS_IN_MINUTE = 60L;
+        return startTime.plusSeconds(duration.getSeconds() * SECONDS_IN_MINUTE);
     }
 
     @Override
@@ -137,6 +137,7 @@ public class Task {
                 ", status=" + status +
                 ", startTime=" + startTime.format(FORMATTER) +
                 ", duration=" + duration.toMinutes() +
+                ", endTime=" + getEndTime().format(FORMATTER) +
                 '}';
     }
 }

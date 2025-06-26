@@ -1,10 +1,11 @@
 package main.taskManagerAndHistoryManagerInterfaces;
 
-import main.model.Epic;
-import main.model.Subtask;
-import main.model.Task;
+import main.models.Epic;
+import main.models.Subtask;
+import main.models.Task;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TaskManager {
     List<Task> getHistory();
@@ -31,11 +32,11 @@ public interface TaskManager {
 
     void deleteAllSubtasksByEpic(Epic epic);
 
-    Task getTaskById(int id);
+    Optional<Task> getTaskById(Integer id);
 
-    Epic getEpicById(int id);
+    Optional<Epic> getEpicById(Integer id);
 
-    Subtask getSubtaskById(int id);
+    Optional<Subtask> getSubtaskById(Integer id);
 
     List<Task> getAllTasks();
 
@@ -43,15 +44,15 @@ public interface TaskManager {
 
     List<Subtask> getAllSubtasks();
 
-    List<Subtask> getAllSubtasksByEpicId(int id);
+    List<Subtask> getAllSubtasksByEpicId(Integer id);
 
-    void updateTask(Task task);
+    Optional<Task> updateTask(Task task);
 
-    void updateEpic(Epic epic);
+    Optional<Epic> updateEpic(Epic epic);
 
     void updateStatus(Epic epic);
 
-    void updateSubtask(Subtask subtask);
+    Optional<Subtask> updateSubtask(Subtask subtask);
 
     void printTasks();
 

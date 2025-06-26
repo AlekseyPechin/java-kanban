@@ -1,4 +1,4 @@
-package main.model;
+package main.models;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -15,7 +15,7 @@ public class Epic extends Task {
         super(name, description);
     }
 
-    public Epic(String name, String description, int id) {
+    public Epic(String name, String description, Integer id) {
         super(name, description, id);
     }
 
@@ -28,7 +28,7 @@ public class Epic extends Task {
         this.endTime = super.getEndTime();
     }
 
-    public Epic(String name, String description, int id, Status status, Type type) {
+    public Epic(String name, String description, Integer id, Status status, Type type) {
         super(name, description, id, status, type);
     }
 
@@ -44,11 +44,11 @@ public class Epic extends Task {
         idSubtasks.clear();
     }
 
-    public void addIdSubtask(int idSubtask) {
+    public void addIdSubtask(Integer idSubtask) {
         idSubtasks.add(idSubtask);
     }
 
-    public void removeSubtaskById(int idSubtask) {
+    public void removeSubtaskById(Integer idSubtask) {
         idSubtasks.removeIf(subtask -> subtask == idSubtask);
     }
 
@@ -69,6 +69,7 @@ public class Epic extends Task {
                 ", id=" + getId() +
                 ", startTime=" + getStartTime().format(FORMATTER) +
                 ", duration=" + getDuration().toMinutes() +
+                ", endTime=" + getEndTime().format(FORMATTER) +
                 ", status=" + getStatus() +
                 ", подзадачи: " + getIdSubtasks().size() + " \n";
     }

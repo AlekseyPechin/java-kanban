@@ -1,9 +1,9 @@
 import main.managers.FileBackedTaskManager;
 import main.managers.Managers;
-import main.model.Epic;
-import main.model.Status;
-import main.model.Subtask;
-import main.model.Task;
+import main.models.Epic;
+import main.models.Status;
+import main.models.Subtask;
+import main.models.Task;
 
 import java.io.File;
 import java.nio.file.Path;

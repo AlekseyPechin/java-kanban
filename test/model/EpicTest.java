@@ -3,8 +3,8 @@ package model;
 import main.taskManagerAndHistoryManagerInterfaces.TaskManager;
 import main.managers.InMemoryHistoryManager;
 import main.managers.Managers;
-import main.model.Epic;
-import main.model.Subtask;
+import main.models.Epic;
+import main.models.Subtask;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,8 +12,9 @@ import org.junit.jupiter.api.Test;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
-import static main.model.Status.NEW;
+import static main.models.Status.NEW;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EpicTest {
@@ -47,20 +48,20 @@ class EpicTest {
     @AfterEach
     void clearingTaskLists() {
         TASK_MANAGER.deleteAllSubtasks();
-        TASK_MANAGER.getEpicById(epic.getId()).clearIdSubtasks();
+        TASK_MANAGER.getEpicById(Optional.of(epic.getId()).get()).get().clearIdSubtasks();
         TASK_MANAGER.deleteAllEpics();
     }
 
     @Test
     void getIdSubtasks() {
-        final List<Integer> idSubtasks = TASK_MANAGER.getEpicById(epic.getId()).getIdSubtasks();
+        final List<Integer> idSubtasks = TASK_MANAGER.getEpicById(Optional.of(epic.getId()).get()).get().getIdSubtasks();
 
         assertEquals(1, idSubtasks.size(), "Список id подзадач пуст!");
     }
 
     @Test
     void clearIdSubtaskArrays() {
-        final List<Integer> idSubtasks = TASK_MANAGER.getEpicById(epic.getId()).getIdSubtasks();
+        final List<Integer> idSubtasks = TASK_MANAGER.getEpicById(Optional.of(epic.getId()).get()).get().getIdSubtasks();
 
         assertEquals(1, idSubtasks.size(), "Список id подзадач пуст!");
 
@@ -71,19 +72,19 @@ class EpicTest {
 
     @Test
     void addIdSubtask() {
-        final List<Integer> idSubtasks = TASK_MANAGER.getEpicById(epic.getId()).getIdSubtasks();
+        final List<Integer> idSubtasks = TASK_MANAGER.getEpicById(Optional.of(epic.getId()).get()).get().getIdSubtasks();
 
         assertEquals(subtask.getId(), idSubtasks.getFirst(), "id подзадач не совпадают!");
     }
 
     @Test
     void removeSubtaskById() {
-        final List<Integer> idSubtasks = TASK_MANAGER.getEpicById(epic.getId()).getIdSubtasks();
+        final List<Integer> idSubtasks = TASK_MANAGER.getEpicById(Optional.of(epic.getId()).get()).get().getIdSubtasks();
 
         assertEquals(subtask.getId(), idSubtasks.getFirst(), "id подзадач не совпадают!");
 
-        TASK_MANAGER.getEpicById(epic.getId()).removeSubtaskById(subtask.getId());
-        final List<Integer> idSubtasksAfterRemove = TASK_MANAGER.getEpicById(epic.getId()).getIdSubtasks();
+        TASK_MANAGER.getEpicById(Optional.of(epic.getId()).get()).get().removeSubtaskById(subtask.getId());
+        final List<Integer> idSubtasksAfterRemove = TASK_MANAGER.getEpicById(Optional.of(epic.getId()).get()).get().getIdSubtasks();
 
         assertEquals(0, idSubtasksAfterRemove.size(), "Список id подзадач не пуст!");
     }

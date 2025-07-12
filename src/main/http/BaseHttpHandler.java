@@ -16,7 +16,7 @@ import java.util.Optional;
 
 public class BaseHttpHandler {
 
-    protected final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
+    protected final Charset defaultCharset = StandardCharsets.UTF_8;
 
     protected Gson gson = new GsonBuilder()
             .setPrettyPrinting()
@@ -61,11 +61,11 @@ public class BaseHttpHandler {
 
     private void writeResponse(HttpExchange exchange, String responseText, int responseCode) throws IOException {
         exchange.getResponseHeaders()
-                .add("Content-Type", "application/json; charset=" + DEFAULT_CHARSET);
+                .add("Content-Type", "application/json; charset=" + defaultCharset);
 
         try (OutputStream os = exchange.getResponseBody()) {
             exchange.sendResponseHeaders(responseCode, 0);
-            os.write(responseText.getBytes(DEFAULT_CHARSET));
+            os.write(responseText.getBytes(defaultCharset));
         }
         exchange.close();
     }

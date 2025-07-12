@@ -62,7 +62,7 @@ public class TaskHandler extends BaseHttpHandler implements HttpHandler {
 
     private void handlePostTask(HttpExchange exchange) throws IOException {
         InputStream inputStream = exchange.getRequestBody();
-        String jsonString = new String(inputStream.readAllBytes(), DEFAULT_CHARSET);
+        String jsonString = new String(inputStream.readAllBytes(), defaultCharset);
 
         if (jsonString.isEmpty() || jsonString.isBlank()) {
             send400(exchange, "Передана пустая задача");

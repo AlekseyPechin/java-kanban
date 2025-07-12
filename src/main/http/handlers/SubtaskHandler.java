@@ -69,7 +69,7 @@ public class SubtaskHandler extends BaseHttpHandler implements HttpHandler {
 
     private void handlePostSubtask(HttpExchange exchange) throws IOException {
         InputStream inputStream = exchange.getRequestBody();
-        String jsonString = new String(inputStream.readAllBytes(), DEFAULT_CHARSET);
+        String jsonString = new String(inputStream.readAllBytes(), defaultCharset);
 
         //Сервер не обнаружил запрашиваемый контент
         if (jsonString.isEmpty() || jsonString.isBlank())

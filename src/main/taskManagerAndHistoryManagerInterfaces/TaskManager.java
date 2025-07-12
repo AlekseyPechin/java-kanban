@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TaskManager {
+    List<Task> getPrioritizedTasks();
+
     List<Task> getHistory();
 
     void remove(int id);

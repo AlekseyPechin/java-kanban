@@ -45,6 +45,10 @@ public class BaseHttpHandler {
         writeResponse(exchange, responseBody, 404);
     }
 
+    protected void send406HasInteractions(HttpExchange exchange, String responseBody) throws IOException {
+        writeResponse(exchange, responseBody, 406);
+    }
+
     protected Optional<Integer> getTaskId(HttpExchange exchange) {
         String taskId = exchange.getRequestURI().getPath().split("/")[2];
 

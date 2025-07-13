@@ -1,7 +1,7 @@
 package main.managers;
 
-import main.taskManagerAndHistoryManagerInterfaces.HistoryManager;
-import main.taskManagerAndHistoryManagerInterfaces.TaskManager;
+import main.managers.interfaces.HistoryManager;
+import main.managers.interfaces.TaskManager;
 
 public class Managers {
 

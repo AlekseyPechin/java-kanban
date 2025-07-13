@@ -6,8 +6,8 @@ import main.models.Epic;
 import main.models.Status;
 import main.models.Subtask;
 import main.models.Task;
-import main.taskManagerAndHistoryManagerInterfaces.HistoryManager;
-import main.taskManagerAndHistoryManagerInterfaces.TaskManager;
+import main.managers.interfaces.HistoryManager;
+import main.managers.interfaces.TaskManager;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

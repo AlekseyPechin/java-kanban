@@ -1,6 +1,6 @@
 package model;
 
-import main.taskManagerAndHistoryManagerInterfaces.TaskManager;
+import main.managers.interfaces.TaskManager;
 import main.managers.InMemoryHistoryManager;
 import main.managers.Managers;
 import main.models.Epic;

@@ -9,7 +9,7 @@ import main.exceptions.TaskOverlapException;
 import main.http.BaseHttpHandler;
 import main.http.Endpoint;
 import main.models.Task;
-import main.taskManagerAndHistoryManagerInterfaces.TaskManager;
+import main.managers.interfaces.TaskManager;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -78,14 +78,15 @@ public class TaskHandler extends BaseHttpHandler implements HttpHandler {
                 taskManager.updateTask(taskFromJson);
                 send201(exchange, "Задача обновлена");
             }
-        } catch (IncorrectTaskException e) {
-            send400(exchange, e.getMessage());
-        } catch (TaskOverlapException e) {
-            send406HasInteractions(exchange, e.getMessage());
-        } catch (NotFoundException e) {
-            send404NotFound(exchange, e.getMessage());
-        } catch (JsonSyntaxException e) {
-            send400(exchange, "Передан некорректный формат запроса");
+        } catch (IncorrectTaskException ex) {
+            send400(exchange, "Некорректная задача");
+        } catch (TaskOverlapException ex) {
+            send406HasInteractions(exchange, "Задачи перекрываются");
+        } catch (NotFoundException ex) {
+            send404NotFound(exchange, ex.getMessage());
+        } catch (JsonSyntaxException ex) {
+            //Сервер не обнаружил запрашиваемый контент
+            send500(exchange);
         }
     }
 

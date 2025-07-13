@@ -4,7 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import main.http.BaseHttpHandler;
 import main.http.Endpoint;
-import main.taskManagerAndHistoryManagerInterfaces.TaskManager;
+import main.managers.interfaces.TaskManager;
 
 import java.io.IOException;
 

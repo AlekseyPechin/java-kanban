@@ -3,7 +3,7 @@ package main.http;
 import com.sun.net.httpserver.HttpServer;
 import main.http.handlers.*;
 import main.managers.Managers;
-import main.taskManagerAndHistoryManagerInterfaces.TaskManager;
+import main.managers.interfaces.TaskManager;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

@@ -49,6 +49,11 @@ public class BaseHttpHandler {
         writeResponse(exchange, responseBody, 406);
     }
 
+    //для отправки ответа, если произошла ошибка сервера
+    protected void send500(HttpExchange httpExchange) throws IOException {
+        writeResponse(httpExchange, "Внутренняя ошибка сервера", 500);
+    }
+
     protected Optional<Integer> getTaskId(HttpExchange exchange) {
         String taskId = exchange.getRequestURI().getPath().split("/")[2];
 

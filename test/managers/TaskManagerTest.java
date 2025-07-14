@@ -7,7 +7,7 @@ import main.models.Epic;
 import main.models.Status;
 import main.models.Subtask;
 import main.models.Task;
-import main.taskManagerAndHistoryManagerInterfaces.TaskManager;
+import main.managers.interfaces.TaskManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

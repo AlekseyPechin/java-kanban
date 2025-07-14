@@ -1,7 +1,7 @@
 package main.managers;
 
 import main.models.Node;
-import main.taskManagerAndHistoryManagerInterfaces.HistoryManager;
+import main.managers.interfaces.HistoryManager;
 import main.models.Task;
 
 import java.util.*;

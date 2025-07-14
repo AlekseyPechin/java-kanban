@@ -1,4 +1,4 @@
-package main.taskManagerAndHistoryManagerInterfaces;
+package main.managers.interfaces;
 
 import main.models.Task;
 

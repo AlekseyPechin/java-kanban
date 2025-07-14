@@ -3,7 +3,7 @@ package main.managers;
 
 import main.exceptions.ManagerSaveException;
 import main.models.*;
-import main.taskManagerAndHistoryManagerInterfaces.HistoryManager;
+import main.managers.interfaces.HistoryManager;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

@@ -3,7 +3,7 @@ package managers;
 import main.managers.InMemoryHistoryManager;
 import main.models.Status;
 import main.models.Task;
-import main.taskManagerAndHistoryManagerInterfaces.HistoryManager;
+import main.managers.interfaces.HistoryManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

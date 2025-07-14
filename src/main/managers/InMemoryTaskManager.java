@@ -6,8 +6,8 @@ import main.models.Epic;
 import main.models.Status;
 import main.models.Subtask;
 import main.models.Task;
-import main.taskManagerAndHistoryManagerInterfaces.HistoryManager;
-import main.taskManagerAndHistoryManagerInterfaces.TaskManager;
+import main.managers.interfaces.HistoryManager;
+import main.managers.interfaces.TaskManager;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -375,6 +375,11 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
+    public List<Task> getPrioritizedTasks() {
+        return prioritizedTasks.stream().toList();
+    }
+
+    @Override
     public List<Task> getHistory() {
         return historyManager.getHistory();
     }
@@ -444,7 +449,4 @@ public class InMemoryTaskManager implements TaskManager {
         }
     }
 
-    private List<Task> getPrioritizedTasks() {
-        return prioritizedTasks.stream().toList();
-    }
 }
